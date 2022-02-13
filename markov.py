@@ -89,16 +89,16 @@ def make_text(chains):
 
         if next_key in chains:
 
-            # randomly selectes one value from the next_key
+            # randomly assigns one value from the next_key to next_word
 
             next_word = choice(list(chains[next_key]))
 
-            # appends new value to words list
+            # adds next_word to words list
         
             words = words + [next_word]
         
         # ends loop if next key is not in chains
-        
+
         else:
 
             break
