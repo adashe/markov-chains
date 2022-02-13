@@ -62,7 +62,39 @@ def make_text(chains):
 
     words = []
 
-    # your code goes here
+    first_pair = choice(list(chains.keys()))
+
+        # print(first_pair)
+
+    # (word1, word2) = [value1]
+
+    first_value = choice(list(chains[first_pair]))
+
+        # print(first_value)
+
+    # [word1, word2, value1]
+
+    words = words + list(first_pair) + [first_value]
+
+        # print(words)
+
+    for i in range(10):
+
+    # (word2, value1) = [value2]
+
+        next_word = choice(list(chains[(words[-2], words[-1])]))
+
+        # print(next_word)
+
+    # [word1, word2, value1, value2]
+
+        words = words + [next_word]
+
+        # print(words)
+
+    # (value1, value2) = [value3]
+
+    # [word1, word2, value1, value2, value3]
 
     return ' '.join(words)
 
@@ -75,7 +107,7 @@ input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
 chains = make_chains(input_text)
-print(chains)
+
 # Produce random text
 random_text = make_text(chains)
 
