@@ -44,16 +44,19 @@ def make_chains(text_string):
     words = text_string.split()
 
     for i in range(len(words) - 2):
+
         third_word = []
-        third_word.append(words[i+2])
+        third_word.append(words[i + 2])
+
         if (words[i], words[i + 1]) in chains:
             chains[words[i], words[i + 1]].append(words[i + 2])
 
         else:
-
             chains[(words[i], words[i + 1])] = third_word
+
         # chains[(words[i], words[i + 1])] = chains.get((words[i], words[i + 1]), []) + [words[i+2]]
         # chains[(words[i], words[i + 1])] = chains.get((words[i], words[i + 1]), []).append(words[i + 2])
+
     return chains
 
 
@@ -62,39 +65,43 @@ def make_text(chains):
 
     words = []
 
+    # chooses random key to initiate list
+
     first_pair = choice(list(chains.keys()))
 
-        # print(first_pair)
-
-    # (word1, word2) = [value1]
+    # finds value of first_pair and assigns it to the variable first_value
 
     first_value = choice(list(chains[first_pair]))
 
-        # print(first_value)
-
-    # [word1, word2, value1]
+    # adds first_pair and first_value to words list
 
     words = words + list(first_pair) + [first_value]
+    
+    # begins a loop to add new keys to words list
 
-        # print(words)
+    while True:
 
-    for i in range(10):
+        # assigns next_key as the last two items in words list
 
-    # (word2, value1) = [value2]
+        next_key = (words[-2], words[-1])
 
-        next_word = choice(list(chains[(words[-2], words[-1])]))
+        # checks if next_key is in chains
 
-        # print(next_word)
+        if next_key in chains:
 
-    # [word1, word2, value1, value2]
+            # randomly selectes one value from the next_key
 
-        words = words + [next_word]
+            next_word = choice(list(chains[next_key]))
 
-        # print(words)
+            # appends new value to words list
+        
+            words = words + [next_word]
+        
+        # ends loop if next key is not in chains
+        
+        else:
 
-    # (value1, value2) = [value3]
-
-    # [word1, word2, value1, value2, value3]
+            break
 
     return ' '.join(words)
 
@@ -103,7 +110,6 @@ input_path = 'green-eggs.txt'
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
-
 
 # Get a Markov chain
 chains = make_chains(input_text)
